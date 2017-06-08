@@ -1,0 +1,44 @@
+{
+    "name": "dolphiq/jsonclient",
+    "description": "Json client plugin for Craft3 CMS",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "json",
+        "jsonclient",
+        "craft3"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dolphiq",
+            "email": "info@dolphiq.nl",
+            "homepage": "https://dolphiq.nl/"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "~3.0.0-beta.1"
+    },
+    "autoload": {
+        "psr-4": {
+          "dolphiq\\jsonclient\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Json Client",
+        "handle": "jsonclient",
+        "schemaVersion": "1.0.0",
+        "developer": "Dolphiq",
+        "developerUrl": "https://dolphiq.nl/",
+        "description": "son client plugin for Craft3 CMS",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "documentationUrl": "https://github.com/Dolphiq/craft3-plugin-jsonclient/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/Dolphiq/craft3-plugin-jsonclient/master/CHANGELOG.md",
+        "class": "dolphiq\\jsonclient\\JsonClientPlugin"
+    }
+}
