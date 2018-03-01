@@ -22,7 +22,7 @@ Simple Json client plugin for Craft3 CMS. The plugin provides a simple Twig exte
 ## Installing using composer
 1. Go to the project craft folder in the terminal and run
 
-       composer require dolphiq/craft3-jsonclient
+       composer require dolphiq/jsonclient
 
 2. Install plugin in the Craft Control Panel under Settings > Plugins
 
