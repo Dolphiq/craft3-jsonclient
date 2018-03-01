@@ -34,9 +34,10 @@ class JsonClientTwigExtension extends Twig_Extension
     }
 
     /**
-     * Returns versioned file or the entire tag.
+     * Returns JSON from URL.
      *
-     * @param  string  $file
+     * @param array $options Options, just URL for now.
+     *
      * @return string
      */
     public function fetchJson($options = [])
@@ -51,15 +52,24 @@ class JsonClientTwigExtension extends Twig_Extension
 
     }
 
-    // Function for cURL
-    private static function getUrl($url) {
-        error_reporting(0);
+    /**
+     * Function for actually getting data with cURL
+     *
+     * @param string $url URL to fetch
+     *
+     * @return mixed
+     */
+    private static function getUrl($url)
+    {
+        $oldErrorLevel = error_reporting(0);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $store = curl_exec($ch);
         curl_close($ch);
+
+        error_reporting($oldErrorLevel);
 
         return $store;
     }
