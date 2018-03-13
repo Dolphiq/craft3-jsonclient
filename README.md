@@ -35,7 +35,7 @@ code standards.
            "repositories": [
                {
                    "type": "vcs",
-                   "url": "https://github.com/kbergha/jsonclient"
+                   "url": "https://github.com/kbergha/craft3-jsonclient"
                }
            ],
            "require": {
