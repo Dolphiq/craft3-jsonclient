@@ -4,6 +4,7 @@ namespace dolphiq\jsonclient\twigextensions;
 
 use Twig_Extension;
 use Twig_SimpleFunction;
+use Craft;
 
 class JsonClientTwigExtension extends Twig_Extension
 {
@@ -30,17 +31,18 @@ class JsonClientTwigExtension extends Twig_Extension
     /**
      * Returns JSON from URL.
      *
-     * @param array $options Options, just URL for now.
+     * @param array $parameters Parameters, just URL for now.
      *
      * @return string
      */
-    public function fetchJson($options = [])
+    public function fetchJson($parameters = [])
     {
-        if (!isset($options['url'])) {
-            die('Required url parameter not set!');
+        if (!isset($parameters['url'])) {
+            Craft::error('URL parameter not set', __METHOD__);
+            return false;
         }
 
-        $data = self::getUrl($options['url']);
+        $data = self::getUrl($parameters['url']);
         return json_decode($data, true);
     }
 
