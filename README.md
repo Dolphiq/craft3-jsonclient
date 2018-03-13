@@ -2,8 +2,13 @@
 
 Simple Json client plugin for Craft3 CMS. The plugin provides a simple Twig extension which allows you to fetch a Json url and use the result in your Twig template.
 
+This is a forked version from https://github.com/Dolphiq/craft3-jsonclient/
+
+It was forked to fix some issues, mostly regarding error handling and
+code standards.
+
 ## Requirements
-* Craft 3.0 (beta 20)+
+* Craft 3.0 (RC14)+
 * PHP 7.0+
 
 ## Using the plugin
@@ -24,7 +29,22 @@ Simple Json client plugin for Craft3 CMS. The plugin provides a simple Twig exte
 
        composer require dolphiq/jsonclient
 
-2. Install plugin in the Craft Control Panel under Settings > Plugins
+2. Add forked version to composer.json
+
+       {
+           "repositories": [
+               {
+                   "type": "vcs",
+                   "url": "https://github.com/kbergha/jsonclient"
+               }
+           ],
+           "require": {
+               "dolphiq/jsonclient": "dev-development"
+           }
+       }
+
+3. Run composer update to get forked/fixed version
+4. Install plugin in the Craft Control Panel under Settings > Plugins
 
 ## Roadmap
 - Create filters for xss scripts
