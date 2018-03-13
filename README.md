@@ -5,7 +5,7 @@ Simple Json client plugin for Craft3 CMS. The plugin provides a simple Twig exte
 This is a forked version from https://github.com/Dolphiq/craft3-jsonclient/
 
 It was forked to fix some issues, mostly regarding error handling and
-code standards.
+coding standards.
 
 ## Requirements
 * Craft 3.0 (RC14)+
@@ -13,16 +13,20 @@ code standards.
 
 ## Using the plugin
 1. Install it using composer or the plugin store.
-2. You can use it from your template
+2. Do composer.json updates - see "Installing using composer"
+3. You can use it from your template
 
 ### Using the plugin in your twig template
         {# Get a random Fact form chucknorris.io #}
         {% set jsonData = fetchJson({
-        'url': 'https://api.chucknorris.io/jokes/random'
+          'url': 'https://api.chucknorris.io/jokes/random'
         }) %}
 
-        <h1>Fact of the day</h1>
-        {{ jsonData.value }}
+        {% if (jsonData) %}
+          <h1>Fact of the day</h1>
+          {{ jsonData.value }}
+        {% endif %}
+
 
 ## Installing using composer
 1. Go to the project craft folder in the terminal and run

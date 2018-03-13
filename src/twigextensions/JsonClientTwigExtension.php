@@ -48,6 +48,9 @@ class JsonClientTwigExtension extends Twig_Extension
 
     /**
      * Function for actually getting data with cURL
+     * Improvements:
+     * - Use Guzzle?
+     * - Check mimetype?
      *
      * @param string $url URL to fetch
      *
@@ -55,16 +58,30 @@ class JsonClientTwigExtension extends Twig_Extension
      */
     protected static function getUrl($url)
     {
-        $oldErrorLevel = error_reporting(0);
+        Craft::debug('Fetching JSON from: '.$url, __METHOD__);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $store = curl_exec($ch);
+        curl_setopt_array(
+            $ch,
+            [
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_MAXREDIRS => 5,
+                CURLOPT_CONNECTTIMEOUT => 5,
+            ]
+        );
+        $data = curl_exec($ch);
+
+        $errorNumber = curl_errno($ch);
+        $errorMessage = curl_error($ch);
         curl_close($ch);
 
-        error_reporting($oldErrorLevel);
+        if ($errorNumber > 0) {
+            Craft::warning('cURL got an error: '.$errorNumber.', '.$errorMessage, __METHOD__);
+            return false;
+        }
 
-        return $store;
+        return $data;
     }
 }
