@@ -2,14 +2,8 @@
 
 namespace dolphiq\jsonclient\twigextensions;
 
-use dolphiq\jsonclient\jsonclient;
-
 use Twig_Extension;
-use Twig_SimpleFilter;
 use Twig_SimpleFunction;
-
-use Craft;
-use ReflectionProperty;
 
 class JsonClientTwigExtension extends Twig_Extension
 {
@@ -29,7 +23,7 @@ class JsonClientTwigExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('fetchJson', [$this, 'fetchJson']),
+            new Twig_SimpleFunction('fetchJson', [$this, 'fetchJson'])
         ];
     }
 
@@ -47,9 +41,7 @@ class JsonClientTwigExtension extends Twig_Extension
         }
 
         $data = self::getUrl($options['url']);
-
         return json_decode($data, true);
-
     }
 
     /**
@@ -59,7 +51,7 @@ class JsonClientTwigExtension extends Twig_Extension
      *
      * @return mixed
      */
-    private static function getUrl($url)
+    protected static function getUrl($url)
     {
         $oldErrorLevel = error_reporting(0);
 
@@ -73,5 +65,4 @@ class JsonClientTwigExtension extends Twig_Extension
 
         return $store;
     }
-
 }
