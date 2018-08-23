@@ -35,7 +35,7 @@ class JsonClientPlugin extends \craft\base\Plugin
 
         self::$plugin = $this;
 
-        Craft::$app->view->twig->addExtension(new JsonClientTwigExtension());
+        Craft::$app->view->registerTwigExtension(new JsonClientTwigExtension());
 
         Craft::info('dolphiq/jsonclient plugin loaded', __METHOD__);
     }
