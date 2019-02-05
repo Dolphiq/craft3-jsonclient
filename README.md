@@ -57,7 +57,8 @@ coding standards.
 - Provide a way to add the parameters separated from the uri
 
 ### Contributors & Developers
-Johan Zandstra - johan@dolphiq.nl
-Knut Erik Berg-Hansen
+- Johan Zandstra - johan@dolphiq.nl
+- Knut Erik Berg-Hansen
+- Mike Pierce
 
 Brought to you by [Dolphiq](https://dolphiq.nl)
