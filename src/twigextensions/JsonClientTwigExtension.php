@@ -2,14 +2,9 @@
 
 namespace dolphiq\jsonclient\twigextensions;
 
-use dolphiq\jsonclient\jsonclient;
-
 use Twig_Extension;
-use Twig_SimpleFilter;
 use Twig_SimpleFunction;
-
 use Craft;
-use ReflectionProperty;
 
 class JsonClientTwigExtension extends Twig_Extension
 {
@@ -29,44 +24,64 @@ class JsonClientTwigExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('fetchJson', [$this, 'fetchJson']),
+            new Twig_SimpleFunction('fetchJson', [$this, 'fetchJson'])
         ];
     }
 
     /**
-     * Returns versioned file or the entire tag.
+     * Returns JSON from URL.
      *
-     * @param  string  $file
+     * @param array $parameters Parameters, just URL for now.
+     *
      * @return string
      */
-    public function fetchJson($options = [])
+    public function fetchJson($parameters = [])
     {
-        //return \view::render('settings', []);
-        // return 'twitter feed...';
-
-        if (!isset($options['url'])) {
-          die('Required url parameter not set!');
+        if (!isset($parameters['url'])) {
+            Craft::error('URL parameter not set', __METHOD__);
+            return false;
         }
 
-        $data = self::getUrl($options['url']);
-
+        $data = self::getUrl($parameters['url']);
         return json_decode($data, true);
-
     }
 
-		// Function for cURL
-		private static function getUrl($url) {
-			error_reporting(0);
+    /**
+     * Function for actually getting data with cURL
+     * Improvements:
+     * - Use Guzzle?
+     * - Check mimetype?
+     *
+     * @param string $url URL to fetch
+     *
+     * @return mixed
+     */
+    protected static function getUrl($url)
+    {
+        Craft::debug('Fetching JSON from: '.$url, __METHOD__);
 
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			$store = curl_exec($ch);
-			curl_close($ch);
+        $ch = curl_init();
+        curl_setopt_array(
+            $ch,
+            [
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_MAXREDIRS => 5,
+                CURLOPT_CONNECTTIMEOUT => 5,
+            ]
+        );
+        $data = curl_exec($ch);
 
-			return $store;
-		}
+        $errorNumber = curl_errno($ch);
+        $errorMessage = curl_error($ch);
+        curl_close($ch);
 
+        if ($errorNumber > 0) {
+            Craft::warning('cURL got an error: '.$errorNumber.', '.$errorMessage, __METHOD__);
+            return false;
+        }
 
-
+        return $data;
+    }
 }
