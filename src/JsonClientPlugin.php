@@ -14,7 +14,8 @@ use Craft;
 use craft\base\Plugin;
 use dolphiq\jsonclient\twigextensions\JsonClientTwigExtension;
 
-class JsonClientPlugin extends Plugin
+
+class JsonClientPlugin extends \craft\base\Plugin
 {
     public static $plugin;
 
@@ -22,7 +23,10 @@ class JsonClientPlugin extends Plugin
     {
         parent::init();
         self::$plugin = $this;
-        Craft::$app->view->twig->addExtension(new JsonClientTwigExtension());
+
+
+        Craft::$app->view->registerTwigExtension(new JsonClientTwigExtension());
+
         Craft::info('dolphiq/jsonclient plugin loaded', __METHOD__);
     }
 }
