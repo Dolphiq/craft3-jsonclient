@@ -1,3 +1,7 @@
+# 1.0.3
+### Changed
+- Change required Craft version to 3.1.x
+
 # 1.0.2
 ### Changed
 - Use registerTwigExtension
