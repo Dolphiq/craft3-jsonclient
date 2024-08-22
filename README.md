@@ -1,5 +1,7 @@
 # Json Client plugin for Craft CMS 3.1.x
 
+## Currently the project is DISCONTINUED. However, feel free to fork it and continue its development!
+
 Simple Json client plugin for Craft3 CMS. The plugin provides a simple Twig extension which allows you to fetch a Json url and use the result in your Twig template.
 
 ## Requirements
